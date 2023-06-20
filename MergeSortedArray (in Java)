@@ -1,0 +1,40 @@
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int oneCount = m-1;
+        int twoCount = n-1;
+        int mergeLoc = m+n-1;
+
+        while(twoCount!= -1 && oneCount != -1)
+        {
+            if(nums2[twoCount]>= nums1[oneCount])
+            {
+                nums1[mergeLoc] = nums2[twoCount];
+                mergeLoc--;
+                twoCount--;
+            }
+            else
+            {
+                nums1[mergeLoc] = nums1[oneCount];
+                mergeLoc--;
+                oneCount--;
+            }
+        }
+
+        while (mergeLoc!= -1)
+        {
+            if(twoCount == -1)
+            {
+                nums1[mergeLoc] = nums1[oneCount];
+                mergeLoc--;
+                oneCount--;
+            }
+            else 
+            {
+                nums1[mergeLoc] = nums2[twoCount];
+                mergeLoc--;
+                twoCount--;
+            }
+        }
+       
+    }
+}
