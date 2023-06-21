@@ -1,0 +1,33 @@
+// AUTHOR : MEGHANA INDUKURI
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+         if(head == null)
+        {
+            return false;
+        }
+        ListNode dud = new ListNode (-10);
+        ListNode next = head.next;
+        while(next!= null)
+        {
+            ListNode next1 = next.next;
+            if(next1 == dud)
+            {
+                return true;
+            }
+            next.next = dud;
+            next = next1;
+        }
+        return false;
+    }
+}
