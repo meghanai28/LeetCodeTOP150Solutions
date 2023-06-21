@@ -1,3 +1,4 @@
+// AUTHOR: MEGHANA INDUKURI
 class Solution {
     public boolean isValidSudoku(char[][] board) {
         // check rows
