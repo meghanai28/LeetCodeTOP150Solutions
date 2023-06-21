@@ -1,0 +1,69 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        // check rows
+        for (int i =0; i< 9; i++)
+        {
+            boolean [] temp = new boolean [9];
+            for (int j =0; j<9; j++)
+            {
+                if(board[i][j] != '.')
+                {
+                    int val =  Integer.parseInt(String.valueOf(board[i][j]));
+                    if(temp[val-1] == true)
+                    {
+                        return false;
+                    }
+                    temp[val-1] = true;
+                } 
+            }
+
+        }
+
+        // check columns
+        for (int i =0; i< 9; i++)
+        {
+            boolean [] temp = new boolean [9];
+            for (int j =0; j<9; j++)
+            {
+                if(board[j][i] != '.')
+                {
+                    int val =  Integer.parseInt(String.valueOf(board[j][i]));
+                    if(temp[val-1] == true)
+                    {
+                        return false;
+                    }
+                    temp[val-1] = true;
+                } 
+            }
+
+        }
+
+        // check sub-boxes
+        for( int s = 0; s<9; s+=3)
+        {
+            for (int i =0; i< 9; i+=3)
+             {
+                boolean [] temp = new boolean [9];
+                for(int k = i; k<i+3; k++)
+                {
+                    for (int j =0; j<3; j++)
+                    {
+                        if(board[k][j+s] != '.')
+                        {
+                            int val =  Integer.parseInt(String.valueOf(board[k][j+s]));
+                            if(temp[val-1] == true)
+                            {
+                                return false;
+                            }
+                            temp[val-1] = true;
+                        }
+                    }
+                }
+             }
+        
+             
+        }   
+
+        return true;
+    }
+}
