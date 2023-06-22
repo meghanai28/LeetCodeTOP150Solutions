@@ -1,0 +1,35 @@
+class Solution {
+    public int climbStairs(int n) {
+        int [] memo = new int [n+1];
+        for(int i =0; i< n+1; i++)
+        {
+            memo[i] = -1;
+        }
+        memo[0] = 0;
+        memo[1] = 1;
+
+        return recur(memo,n);
+    }
+
+    private int recur (int [] memo, int n)
+    {
+        int count =0;
+        if(n==0)
+        {
+            return 1;
+        }
+        if(memo[n] != -1)
+        {
+            return memo[n];
+        }
+        if(n <0)
+        {
+            return 0;
+        }
+        count += recur (memo, n -2);
+        count += recur (memo, n -1);
+
+        memo[n] = count;
+        return count;
+    }
+}
