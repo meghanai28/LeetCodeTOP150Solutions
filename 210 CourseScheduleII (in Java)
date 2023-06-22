@@ -1,0 +1,78 @@
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+
+         Course [] arr = new Course [numCourses];
+        for(int i =0; i<numCourses; i++)
+        {
+            arr[i] = new Course(i);
+        }
+
+        int size = prerequisites.length;
+        for(int i =0; i<size; i++)
+        {
+            arr[prerequisites[i][0]].preReq(arr[prerequisites[i][1]]);
+        }
+
+        // find inDegree for each vertex
+		int[] indegree = new int[numCourses];
+        int result =0;
+
+        // S = orderedList a queue basically
+		ArrayList<Course> s = new ArrayList<Course>();
+        int [] finalarr = new int [numCourses];
+
+        for(int i =0; i< arr.length; i++)
+        {
+            if(arr[i].ingoingSize == 0)
+            {
+                s.add(arr[i]);
+            }
+        }
+
+        while (!s.isEmpty())
+        {
+            Course u = s.get(0);
+            finalarr[result] = u.value;
+            s.remove(0);
+            result++;
+
+            for(Course v : u.outgoingCourse)
+            {
+                indegree[v.value] ++;
+                if(v.ingoingSize - indegree[v.value] == 0 )
+                {
+                    s.add(v);
+                }
+            }
+        }
+
+        if( result != numCourses)
+        {
+            return new int [0];
+        }
+		return finalarr;
+        
+    }
+
+
+    public class Course
+    {
+        public ArrayList<Course> outgoingCourse;
+        public int ingoingSize;
+        public int value;
+
+        private Course (int i)
+        {
+            outgoingCourse = new ArrayList<Course>();
+            ingoingSize = 0;
+            value = i;
+
+        }
+
+        public void preReq (Course c)
+        {
+            c.outgoingCourse.add(this);
+            this.ingoingSize++;
+        }
+    }
+}
