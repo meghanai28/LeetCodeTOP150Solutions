@@ -1,3 +1,40 @@
+// two pointer solution
+class Solution {
+    public boolean isPalindrome(String s) {
+        String l = s.toLowerCase();
+        int frontIndex = 0;
+        int lastIndex = l.length() -1;
+
+        while(lastIndex > frontIndex)
+        {
+            Boolean isLetterf = Character.isLetter(l.charAt(frontIndex)) || Character.isDigit(l.charAt(frontIndex));
+            Boolean isLetterl = Character.isLetter(l.charAt(lastIndex)) || Character.isDigit(l.charAt(lastIndex));
+
+            if(!isLetterf)
+            {
+                frontIndex ++;
+            }
+            else if(!isLetterl)
+            {
+                lastIndex --;
+            }
+            else
+            {
+                if(l.charAt(frontIndex) != l.charAt(lastIndex))
+                {
+                    return false;
+                }
+                frontIndex ++;
+                lastIndex --;
+            }
+        }
+
+        return true;
+
+    }
+}
+
+// brute force
 class Solution {
     public boolean isPalindrome(String s) {
         String l = s.toLowerCase();
