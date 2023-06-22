@@ -1,0 +1,25 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        String l = s.toLowerCase();
+        String finalans = "";
+
+        for(int i =0; i<l.length(); i++)
+        {
+            if(Character.isLetter(l.charAt(i)) || Character.isDigit(l.charAt(i)) )
+            {
+                finalans += l.charAt(i);
+            }
+        }
+
+        for(int i =0; i< finalans.length(); i++)
+        {
+           if(finalans.charAt(i) != finalans.charAt(finalans.length() - i- 1))
+           {
+               return false;
+           }
+        }
+
+        return true;
+
+    }
+}
