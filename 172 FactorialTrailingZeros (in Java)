@@ -1,0 +1,21 @@
+class Solution {
+    public int trailingZeroes(int n) {
+       
+    	int counter = 0;
+    	
+    	for(int i = 1; i <= n; i++)
+    	{
+    		if(i % 5 == 0)
+            {
+                int s = i;
+                while (s% 5 == 0)
+                {
+                    counter++;
+                    s = s /5;
+                }
+            }
+    	}
+    	
+    	return counter;
+    }
+}
