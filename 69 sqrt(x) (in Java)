@@ -1,0 +1,18 @@
+class Solution {
+ public int mySqrt(int x) {
+        	long xt = x;
+        	
+            for(long i =0; i< xt+1; i++)
+            {
+                if(i*i > x)
+                {
+                    return (int) i-1;
+                }
+                if(i*i == x)
+                {
+                    return (int) i;
+                }
+            }
+            return x;
+        }
+}
