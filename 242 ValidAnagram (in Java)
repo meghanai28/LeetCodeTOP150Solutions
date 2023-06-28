@@ -1,0 +1,40 @@
+class Solution {
+    public boolean isAnagram(String s, String t) {
+
+						if(s.length() != t.length())
+						{
+							return false;
+						}
+	          HashMap <Character, Integer> ransom =
+	          new HashMap <Character, Integer>();
+
+	          char [] arr = s.toCharArray();
+
+	          for(int i =0; i< arr.length; i++)
+	          {
+	              if(ransom.get(arr[i]) == null)
+	              {
+	                  ransom.put(arr[i],1);
+	              }
+	              else
+	              {
+	                  int k = ransom.get(arr[i])+1;
+	                  ransom.remove(arr[i]);
+	                  ransom.put(arr[i],k);
+	              }
+	          }
+
+	          for(int i =0; i< t.length(); i++)
+	          {
+	              if(ransom.get(t.charAt(i)) == null || ransom.get(t.charAt(i)) == 0)
+	              {
+	                  return false;
+	              }
+	              int k = ransom.get(t.charAt(i))-1;
+	              ransom.remove(t.charAt(i));
+	              ransom.put(t.charAt(i),k);
+	          }
+
+	          return true;
+	      }
+}
