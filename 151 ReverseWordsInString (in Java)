@@ -9,7 +9,7 @@ class Solution {
 	          {
 	              if(k.charAt(i) == ' ' && k.charAt(i-1) != ' ')
 	              {
-	                  stck.add(0,wrd);
+	                  stck.add(wrd);
 	                  wrd = "";
 	              }
 	              else if(k.charAt(i) != ' ')
@@ -17,16 +17,16 @@ class Solution {
 	                  wrd+= k.charAt(i);
 	              }
 	          }
-	          stck.add(0,wrd);
+	          stck.add(wrd);
 	          String ans = "";
 
 	          int size = stck.size();
 	          for(int i =0; i< size-1; i++)
 	          {
-	              ans += stck.remove(0) + " ";
+	              ans += stck.remove(stck.size()-1) + " ";
 	          }
 	          
-	          ans+= stck.remove(0);
+	          ans+= stck.remove(stck.size()-1);
 	      
 
 	          return ans;
