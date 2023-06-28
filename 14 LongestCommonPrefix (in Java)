@@ -1,0 +1,39 @@
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        boolean found = false;
+        if (strs.length == 0)
+        {
+            return "";
+        }
+        String prefix = "";
+        int k =0;
+        while (!found)
+        {
+            if(strs[0].length()<=k)
+            {
+                return prefix;
+            }
+            char a = strs[0].charAt(k);
+            for(int i =1; i<strs.length; i++)
+            {
+                if(strs[i].length()<=k)
+                {
+                    return prefix;
+                }
+                if(strs[i].charAt(k) != a)
+                {
+                     found = true;
+                     i = strs.length;
+                }
+            }
+
+            if(!found)
+            {
+                prefix += a;
+            }
+            k++;
+        }
+
+        return prefix;
+    }
+}
