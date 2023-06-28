@@ -1,0 +1,35 @@
+class Solution {
+	      public boolean canConstruct(String ransomNote, String magazine) {
+	          HashMap <Character, Integer> ransom =
+	          new HashMap <Character, Integer>();
+
+	          char [] arr = magazine.toCharArray();
+
+	          for(int i =0; i< arr.length; i++)
+	          {
+	              if(ransom.get(arr[i]) == null)
+	              {
+	                  ransom.put(arr[i],1);
+	              }
+	              else
+	              {
+	                  int k = ransom.get(arr[i])+1;
+	                  ransom.remove(arr[i]);
+	                  ransom.put(arr[i],k);
+	              }
+	          }
+
+	          for(int i =0; i< ransomNote.length(); i++)
+	          {
+	              if(ransom.get(ransomNote.charAt(i)) == null || ransom.get(ransomNote.charAt(i)) == 0)
+	              {
+	                  return false;
+	              }
+	              int k = ransom.get(ransomNote.charAt(i))-1;
+	              ransom.remove(ransomNote.charAt(i));
+	              ransom.put(ransomNote.charAt(i),k);
+	          }
+
+	          return true;
+	      }
+}
