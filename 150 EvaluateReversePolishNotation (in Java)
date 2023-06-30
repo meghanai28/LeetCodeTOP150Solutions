@@ -1,0 +1,48 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        ArrayList<Integer> numStck = new ArrayList<Integer>();
+
+        for(int i =0; i< tokens.length; i++)
+        {
+            if(tokens[i].equals("+"))
+            {
+                int first= numStck.remove(numStck.size()-1);
+                int sec= numStck.remove(numStck.size()-1);
+
+                int val = sec + first;
+                numStck.add(val);
+            }
+            else if(tokens[i].equals("-"))
+            {
+                int first= numStck.remove(numStck.size()-1);
+                int sec= numStck.remove(numStck.size()-1);
+
+                int val = sec - first;
+                numStck.add(val);
+            }
+            else if(tokens[i].equals("*"))
+            {
+                int first= numStck.remove(numStck.size()-1);
+                int sec= numStck.remove(numStck.size()-1);
+
+                int val = sec * first;
+                numStck.add(val);
+            }
+            else if(tokens[i].equals("/"))
+            {
+                int first= numStck.remove(numStck.size()-1);
+                int sec= numStck.remove(numStck.size()-1);
+
+                int val = sec / first;
+                numStck.add(val);
+            }
+            else
+            {
+                int x = Integer.parseInt(tokens[i]);
+                numStck.add(x);
+            }
+        }
+
+        return numStck.remove(numStck.size()-1);
+    }
+}
