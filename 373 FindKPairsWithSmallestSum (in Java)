@@ -1,0 +1,143 @@
+class Solution {
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k)  {
+        List<List<Integer>> allPairs = new ArrayList<List<Integer>>();
+
+        for(int i =0; i< nums1.length; i++)
+        {
+            for(int j = 0; j<nums2.length; j++)
+            {
+                ArrayList<Integer> pair = new ArrayList<Integer>();
+                int sum = nums1[i] + nums2[j];
+                if(allPairs.size() < k)
+                {
+                    pair.add(nums1[i]);
+                    pair.add(nums2[j]);
+
+                    heapAdd(allPairs, pair);
+                }
+                else if (sum < (allPairs.get(0).get(0)) + allPairs.get(0).get(1))
+                {
+                    heapDelete(allPairs);
+                    pair.add(nums1[i]);
+                    pair.add(nums2[j]);
+
+                    heapAdd(allPairs, pair);
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+        }
+
+        if(allPairs.size()< k)
+        {
+            return allPairs;
+        }
+
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+
+        for(int i =0; i<k; i++)
+        {
+            ans.add(heapDelete(allPairs));
+        }
+
+        return ans;
+
+    }
+
+    public void heapAdd(List<List<Integer>> allPairs, ArrayList<Integer> pair)
+    {
+        if(allPairs.size() == 0)
+        {
+            allPairs.add(pair);
+        }
+        else
+        {
+            int pairSum = pair.get(0) + pair.get(1);
+            allPairs.add(pair);
+            int i = allPairs.size()-1;
+            int parent = (i-1)/2;
+
+            while (i!= 0 && ((allPairs.get(parent).get(0) + allPairs.get(parent).get(1))<pairSum) )
+            {
+                allPairs.set(i, allPairs.get(parent));
+                allPairs.set(parent, pair);
+
+                i = parent;
+                parent = (i-1)/2;
+            }
+            
+        }
+
+
+    }
+
+    private void heapify(List<List<Integer>> allPairs, int i)
+    {
+        int smallest = i;
+        List<Integer> pair = allPairs.get(i);
+        int pairSum = pair.get(0) + pair.get(1);
+        int left = (2*i) + 1;
+        int right = (2*i) + 2;
+
+        if(left > allPairs.size()-1)
+        {
+            left = i;
+        }
+        if(right > allPairs.size()-1)
+        {
+            right = i;
+        }
+
+        List<Integer> pairL = allPairs.get(left);
+        List<Integer> pairR = allPairs.get(right);
+        int pairSumL = pairL.get(0) + pairL.get(1);
+        int pairSumR = pairR.get(0) + pairR.get(1);
+
+        if(pairSumL > pairSum)
+        {
+            smallest = left;
+        }
+
+        if(pairSumR > (allPairs.get(smallest).get(0) + allPairs.get(smallest).get(1)))
+	          {
+	              smallest = right;
+	          }
+
+        if(smallest != i)
+        {
+            allPairs.set(i, allPairs.get(smallest));
+            allPairs.set(smallest, pair);
+
+            heapify(allPairs, smallest);
+        }
+
+    }
+
+    public List<Integer> heapDelete(List<List<Integer>> allPairs)
+    {
+       List<Integer> pair = allPairs.get(0);
+
+        if(allPairs.size() == 1)
+        {
+            allPairs.remove(allPairs.size()-1);
+            return pair;
+        }
+
+        allPairs.set(0, allPairs.get(allPairs.size()-1));
+
+        allPairs.remove(allPairs.size()-1);
+
+
+        heapify(allPairs, 0);
+
+        return pair;
+    }
+    
+
+
+
+
+}
