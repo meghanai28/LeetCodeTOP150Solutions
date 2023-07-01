@@ -1,0 +1,45 @@
+class RandomizedSet {
+
+    HashMap<Integer, Integer> test = new HashMap<Integer, Integer>();
+    ArrayList<Integer> tst = new ArrayList<Integer>();
+    int size;
+    public RandomizedSet() {
+        test = new HashMap<Integer, Integer>();
+        tst = new ArrayList<Integer>();
+    }
+    
+    public boolean insert(int val) {
+        if(!test.containsKey(val))
+        {
+            test.put(val,tst.size());
+            tst.add(val);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean remove(int val) {
+        if(test.containsKey(val))
+        {
+            int index = test.remove(val);
+            int in = tst.get(tst.size()-1);
+            if(in != val)
+            {
+                 tst.remove(tst.size()-1);
+                 test.put(in, index);
+                 tst.set(index, in);
+            }
+            else
+            {
+                tst.remove(tst.size()-1);
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    public int getRandom() {
+        int x = (int) (Math.random() * tst.size());
+        return tst.get(x);
+    }
+}
