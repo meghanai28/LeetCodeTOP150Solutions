@@ -7,7 +7,7 @@ class Solution {
             if(mp.containsKey(nums[i]))
             {
                 int ind = mp.get(nums[i]);
-                if(Math.abs(i-ind)<=k)
+                if((i-ind)<=k)
                 {
                     return true;
                 }
