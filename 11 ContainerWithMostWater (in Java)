@@ -1,0 +1,34 @@
+class Solution {
+    public int maxArea(int[] height) {
+        int max =0;
+        int startIndex = 0;
+        int endIndex = height.length -1;
+        for(int i=0; i<height.length; i++)
+        {
+            if(startIndex == endIndex)
+            {
+                break;
+            }
+            int width = endIndex - startIndex;
+            if(height[startIndex]>height[endIndex])
+            {
+                if(width * height[endIndex] >max )
+                {
+                    max = width * height[endIndex];
+                }
+                endIndex --;
+            }
+            else
+            {
+                if(width * height[startIndex] >max )
+                {
+                    max = width * height[startIndex];
+                }
+                startIndex ++;
+            }
+
+        }
+
+        return max;
+    }
+}
