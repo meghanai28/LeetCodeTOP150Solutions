@@ -26,7 +26,6 @@ class Solution {
                     tst.add(nums[i]);
                     tst.add(nums[j]);
                     tst.add(nums[k]);
-                    Collections.sort(tst);
                     if(!set.contains(tst))
                     {
                         ans.add(tst);
