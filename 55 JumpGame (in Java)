@@ -1,0 +1,39 @@
+class Solution {
+    public boolean canJump(int[] nums) {
+        boolean [] tbl = new boolean [nums.length];
+        return recur(tbl,nums, 0, nums[0]);
+    }
+
+    public boolean recur (boolean [] tbl, int [] nums, int index, int jumpVal)
+    {
+        if(tbl[index])
+        {
+            return false;
+        }
+        else if(index == nums.length -1)
+        {
+            return true;
+        }
+        else if(jumpVal <= 0)
+        {
+            tbl[index] = true;
+            return false;
+        }
+        else if(index + jumpVal >= nums.length)
+        {
+            return recur(tbl,nums, index, jumpVal-1 );
+        }
+        else
+        {
+            boolean test =  recur(tbl,nums, index + jumpVal, nums[index + jumpVal] );
+            if(!test)
+            {
+            	return recur(tbl,nums, index, jumpVal-1 );
+            }
+            else
+            {
+            	return true;
+            }
+        }
+    }
+}
