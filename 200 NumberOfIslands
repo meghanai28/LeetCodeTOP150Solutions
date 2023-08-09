@@ -1,0 +1,139 @@
+class Solution {
+	
+
+    private class Node
+    {
+        public ArrayList<Node> outgoingList;
+        public boolean visited;
+        public boolean island;
+        public int index;
+        public Node (boolean is, int ind)
+        {
+            island = is;
+            visited = false;
+            index = ind;
+            outgoingList = new ArrayList <Node>();
+        }
+        
+
+    }
+
+    public ArrayList<Node> graph = new ArrayList<Node>();
+    
+    public int numIslands(char[][] grid) {
+        char[][] dummy = dummyGrid(grid);
+        createGraph(dummy);
+        createDependencies(dummy);
+        int count =0;
+
+        for(Node x: graph)
+        {
+            if(x.island && !x.visited)
+            {
+                x.visited = true;
+
+                while (!x.outgoingList.isEmpty())
+                {
+                    Node s = x.outgoingList.remove(0);
+                    if(s.island && !s.visited)
+                    {
+                        s.visited = true;
+                        for(Node z : s.outgoingList)
+                        {
+                            x.outgoingList.add(z);
+                        }
+                    }
+                }
+
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public char[][] dummyGrid(char[][] grid)
+    {
+        char[][] dummy = new char[grid.length+2][grid[0].length+2];
+
+        for(int i =0; i< dummy.length; i++)
+        {
+            dummy[i][0] = '0';
+        }
+
+        for(int i =0; i< dummy.length; i++)
+        {
+            dummy[i][dummy[0].length -1] = '0';
+        }
+
+        for(int i =dummy[0].length -1; i>=0; i--)
+        {
+            dummy[0][i] = '0';
+        }
+
+        for(int i =dummy[0].length -1; i>=0; i--)
+        {
+            dummy[dummy.length -1][i] = '0';
+        }
+
+        for(int i = 1; i< grid.length +1; i++)
+        {
+            for (int j = 1; j<grid[0].length +1; j++)
+            {
+                dummy[i][j] = grid[i-1][j-1];
+            }
+        }
+
+        return dummy;
+    }
+
+    private void createDependencies (char[][] dummy)
+    {
+        for(int i = 1; i< dummy.length - 1; i++)
+        {
+            for(int j =1; j<dummy[0].length -1; j++)
+            {
+                Node par = graph.get( (i*dummy[0].length)+j);
+
+                int ind = par.index;
+
+                int top = par.index - dummy[0].length;
+
+                int bot = par.index + dummy[0].length;
+
+                int right = par.index + 1;
+                int left = par.index -1;
+
+                par.outgoingList.add(graph.get(top));
+                par.outgoingList.add(graph.get(bot));
+                par.outgoingList.add(graph.get(right));
+                par.outgoingList.add(graph.get(left));
+            }
+        }
+    }
+
+    private void createGraph (char[][] dummy)
+    {
+        int index =0;
+        for(int i =0; i< dummy.length; i++)
+        {
+            for(int j =0; j< dummy[i].length; j++)
+            {
+                Node tst;
+                if(dummy[i][j] == '0')
+                {
+                    tst = new Node(false,index);
+                }
+                else
+                {
+                    tst = new Node(true,index);
+                }
+                index++;
+                graph.add(tst);
+            }
+        }
+    }
+
+
+
+
+}
