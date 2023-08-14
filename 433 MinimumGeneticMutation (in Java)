@@ -1,0 +1,81 @@
+
+
+class Solution {
+    public int minMutation(String startGene, String endGene, String[] bank) {
+
+        ArrayList<String> arr = new ArrayList<String>();
+        for(int i =0; i<bank.length; i++ )
+        {
+            arr.add(bank[i]);
+        }
+
+        int cnt = 0;
+        String strt = startGene;
+        ArrayList<String> que = new ArrayList<String>();
+
+          for(int i =0; i<arr.size(); i++)
+            {
+               int count = cntMutation(arr.get(i),strt);
+               if(count == 1)
+               {
+                   que.add(arr.get(i));
+                   arr.remove(i);
+                   i--;
+               }
+            }
+
+        while(!que.isEmpty())
+        {
+
+            int size = que.size();
+            cnt ++;
+            for(int i =0; i<size; i++)
+            {
+                String s = que.remove(0);
+                if(s.equals(endGene))
+                {
+                    return cnt;
+                }
+
+                for(int j =0; j<arr.size(); j++)
+                {
+                	int count = cntMutation(arr.get(j),s);
+                	if(count == 1)
+                	{
+                		que.add(arr.get(j));
+                		arr.remove(j);
+                		j--;
+                }
+                
+            }
+
+            }
+
+
+        }
+
+
+
+        return -1;
+
+
+        
+    }
+
+    public int cntMutation (String start, String compare)
+    {
+        char [] str = start.toCharArray();
+        char [] cmp = compare.toCharArray();
+        int count =0;
+
+        for(int i =0; i< str.length; i++)
+        {
+            if(cmp[i] != str[i])
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    }
